@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.15)
+project(moon_cosmetics_pos LANGUAGES CXX)
+
+set(BINARY_NAME "Moon_Cosmetics_POS")
+set(APPLICATION_ICON "${CMAKE_CURRENT_SOURCE_DIR}/runner/resources/app_icon.ico")
+set(MAIN_WINDOW_TITLE "Moon Cosmetics & Beauty Shop POS")
+
+# ... rest of standard CMake configuration with the above overrides

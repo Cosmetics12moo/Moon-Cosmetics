@@ -1,0 +1,19 @@
+[Setup]
+AppName=Moon Cosmetics & Beauty Shop POS
+AppVersion=1.0.0
+DefaultDirName={pf}\Moon Cosmetics POS
+DefaultGroupName=Moon Cosmetics
+OutputBaseFilename=Moon_Cosmetics_POS_Setup
+Compression=lzma
+SolidCompression=yes
+
+[Files]
+Source: "build\windows\runner\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+
+[Icons]
+Name: "{group}\Moon Cosmetics POS"; Filename: "{app}\Moon_Cosmetics_POS.exe"
+Name: "{group}\Uninstall"; Filename: "{uninstallexe}"
+Name: "{commondesktop}\Moon Cosmetics POS"; Filename: "{app}\Moon_Cosmetics_POS.exe"; Tasks: desktopicon
+
+[Run]
+Filename: "{app}\Moon_Cosmetics_POS.exe"; Description: "Launch Moon Cosmetics POS"; Flags: postinstall nowait
