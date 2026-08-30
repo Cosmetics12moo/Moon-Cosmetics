@@ -1,0 +1,48 @@
+name: Build Windows EXE
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: '3.22.2'
+          cache: true
+
+      - name: 📦 Get Dependencies
+        run: flutter pub get
+
+      - name: 🔧 Enable Windows Desktop
+        run: flutter config --enable-windows-desktop
+
+      - name: 🏗️ Create Windows Platform Scaffold
+        run: flutter create --platforms=windows .
+
+      - name: 🚀 Build Windows EXE
+        run: flutter build windows --release
+
+      - name: 📁 Create ZIP Archive
+        run: |
+          if (Test-Path "build/windows/runner/Release/*.exe") {
+            Compress-Archive -Path build/windows/runner/Release/* -DestinationPath Moon_Cosmetics_POS.zip
+          } else {
+            Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath Moon_Cosmetics_POS.zip
+          }
+
+      - name: 📤 Upload EXE Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Moon-Cosmetics-POS
+          path: Moon_Cosmetics_POS.zip
+          retention-days: 30
